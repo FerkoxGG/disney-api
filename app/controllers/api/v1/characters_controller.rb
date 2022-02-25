@@ -9,8 +9,8 @@ class Api::V1::CharactersController < Api::V1::BaseController
   end
 
   def create
-    @character = Character.new(character_params)
-    @character.user = current_user
+    @character = current_user.characters.build(character_params)
+    user_id = current_user.id
     authorize @character
     if @character.save
       render :show, status: :created

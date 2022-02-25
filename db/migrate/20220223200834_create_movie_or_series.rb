@@ -6,6 +6,8 @@ class CreateMovieOrSeries < ActiveRecord::Migration[6.1]
       t.date :date_of_create
       t.integer :rating
       t.references :character, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
+      t.references :gender, null: false, foreign_key: true
 
       t.timestamps
     end

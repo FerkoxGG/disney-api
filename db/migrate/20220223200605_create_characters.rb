@@ -6,7 +6,8 @@ class CreateCharacters < ActiveRecord::Migration[6.1]
       t.string :age
       t.string :weight
       t.string :history
-
+      t.references :user, null: false, foreign_key: true
+      
       t.timestamps
     end
   end
