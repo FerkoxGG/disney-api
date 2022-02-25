@@ -21,19 +21,17 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
     t.string "age"
     t.string "weight"
     t.string "history"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "movie_or_serie_id", null: false
-    t.index ["movie_or_serie_id"], name: "index_characters_on_movie_or_serie_id"
+    t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "genders", force: :cascade do |t|
     t.string "name"
     t.string "image"
-    t.bigint "movie_or_serie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movie_or_serie_id"], name: "index_genders_on_movie_or_serie_id"
   end
 
   create_table "movie_or_series", force: :cascade do |t|
@@ -42,9 +40,13 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
     t.date "date_of_create"
     t.integer "rating"
     t.bigint "character_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "gender_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["character_id"], name: "index_movie_or_series_on_character_id"
+    t.index ["gender_id"], name: "index_movie_or_series_on_gender_id"
+    t.index ["user_id"], name: "index_movie_or_series_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,7 +63,8 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "characters", "movie_or_series", column: "movie_or_serie_id"
-  add_foreign_key "genders", "movie_or_series", column: "movie_or_serie_id"
+  add_foreign_key "characters", "users"
   add_foreign_key "movie_or_series", "characters"
+  add_foreign_key "movie_or_series", "genders"
+  add_foreign_key "movie_or_series", "users"
 end
