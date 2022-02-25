@@ -40,7 +40,7 @@ class Api::V1::CharactersController < Api::V1::BaseController
   end
 
   def character_params
-    params.require(:character).permit(:name, :image, :user_id)
+    params.require(:character).permit(:name, :image)
   end
 
   def render_error
