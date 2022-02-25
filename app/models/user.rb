@@ -7,5 +7,4 @@ class User < ApplicationRecord
   has_many :characters, dependent: :destroy
   has_many :movie_or_series, dependent: :destroy
   has_many :genders, dependent: :destroy
-  validates :email, presence: true
 end

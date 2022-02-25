@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
   create_table "genders", force: :cascade do |t|
     t.string "name"
     t.string "image"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_genders_on_user_id"
   end
 
   create_table "movie_or_series", force: :cascade do |t|
@@ -39,9 +41,9 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
     t.string "title"
     t.date "date_of_create"
     t.integer "rating"
-    t.bigint "character_id", null: false
+    t.bigint "character_id"
     t.bigint "user_id", null: false
-    t.bigint "gender_id", null: false
+    t.bigint "gender_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["character_id"], name: "index_movie_or_series_on_character_id"
@@ -64,6 +66,7 @@ ActiveRecord::Schema.define(version: 2022_02_23_203135) do
   end
 
   add_foreign_key "characters", "users"
+  add_foreign_key "genders", "users"
   add_foreign_key "movie_or_series", "characters"
   add_foreign_key "movie_or_series", "genders"
   add_foreign_key "movie_or_series", "users"
